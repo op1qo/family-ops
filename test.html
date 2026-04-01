@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"/><title>Test</title></head>
+<body>
+<div id="out">Starting...</div>
+<script>
+document.getElementById('out').textContent = 'Step 1: Basic JS works';
+</script>
+<script type="module">
+document.getElementById('out').textContent = 'Step 2: ES modules work';
+import('https://esm.sh/react@18').then(r => {
+  document.getElementById('out').textContent = 'Step 3: React loaded OK — ' + r.version;
+}).catch(e => {
+  document.getElementById('out').textContent = 'Step 3 FAILED: ' + e.message;
+});
+</script>
+</body>
+</html>
