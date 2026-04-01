@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Family Ops</title>
+</head>
+<body>
+<div id="root">Loading...</div>
+<script type="module">
+import { createElement as h, useState, useEffect } from 'https://esm.sh/react@18.3.1';
+import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
+
+const sb = createClient(
+  'https://quisbgcmnhlxulmrporl.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1aXNiZ2NtbmhseHVsbXJwb3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5ODk1MzksImV4cCI6MjA5MDU2NTUzOX0.GvOcB6f-SA8EPjShBq5RVCXcWMwogc4RbpFrpV_0sa8'
+);
+
+function App() {
+  const [status, setStatus] = useState('Connecting...');
+
+  useEffect(() => {
+    sb.from('completions').select('*').limit(1).then(({ data, error }) => {
+      if (error) setStatus('DB error: ' + error.message);
+      else setStatus('Connected! Rows: ' + (data ? data.length : 0));
+    });
+  }, []);
+
+  return h('div', { style: { padding: 40, fontFamily: 'sans-serif' } },
+    h('h1', null, 'Family Ops'),
+    h('p', null, status)
+  );
+}
+
+createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>
