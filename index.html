@@ -506,7 +506,7 @@ function App() {
           h('button',{onClick:()=>setModal("add"),style:{background:C.indigo,color:"white",padding:"9px 14px",borderRadius:12,fontSize:13,fontWeight:700,border:"none",cursor:"pointer",display:"flex",alignItems:"center",gap:4}},
             h('span',{style:{fontSize:18,lineHeight:1}},"+")," Add"
           ),
-          h('button',{onClick:handleReset,style:{background:"#f3f4f6",color:"#374151",padding:"9px 12px",borderRadius:12,fontSize:15,fontWeight:700,border:"none",cursor:"pointer"}},title="Reset today","↺")
+          h('button',{onClick:handleReset,title:"Reset today",style:{background:"#f3f4f6",color:"#374151",padding:"9px 12px",borderRadius:12,fontSize:15,fontWeight:700,border:"none",cursor:"pointer"}},"↺")
         )
       ),
       // Tabs
