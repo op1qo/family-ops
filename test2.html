@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"/><title>Test 2</title></head>
+<body>
+<div id="out">Starting...</div>
+<script type="module">
+const el = document.getElementById('out');
+el.textContent = 'Step 1: module started';
+
+try {
+  const { createElement: h, useState } = await import('https://esm.sh/react@18.3.1');
+  el.textContent = 'Step 2: React OK';
+
+  const { createRoot } = await import('https://esm.sh/react-dom@18.3.1/client');
+  el.textContent = 'Step 3: ReactDOM OK';
+
+  const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.3');
+  el.textContent = 'Step 4: Supabase OK';
+
+  const sb = createClient('https://quisbgcmnhlxulmrporl.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1aXNiZ2NtbmhseHVsbXJwb3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5ODk1MzksImV4cCI6MjA5MDU2NTUzOX0.GvOcB6f-SA8EPjShBq5RVCXcWMwogc4RbpFrpV_0sa8');
+  el.textContent = 'Step 5: Client created OK';
+
+  const { data, error } = await sb.from('completions').select('*').limit(1);
+  if (error) { el.textContent = 'Step 6 FAILED: ' + error.message; }
+  else { el.textContent = 'Step 6: DB query OK! All good.'; }
+
+} catch(e) {
+  el.textContent = 'ERROR: ' + e.message;
+}
+</script>
+</body>
+</html>
